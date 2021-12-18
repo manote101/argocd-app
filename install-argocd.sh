@@ -1,9 +1,13 @@
+```ShellSession
 kubectl create namespace argocd
 kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
 
 # if you want access via NodePort, just download above to local machine, change server called "argocd-server" to NodePort before running install.
 # vi install.yaml
 # kubectl apply -n argocd -f install.yaml
+# or you can use 'kubect patche'
+
+kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "NodePort"}}'
 
 kubectl -n argocd get pod -w
 
@@ -16,3 +20,4 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o yaml
 echo <encoded-password>== | base64 --decode
 
 # you will you password like this, "xLJEaoRVruCmaJr5%", remove the ending % before use.
+```
